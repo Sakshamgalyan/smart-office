@@ -16,6 +16,7 @@ export default function SignupForm({ toggle }: { toggle: () => void }) {
     const [formData, setFormData] = useState({
         email: "",
         username: "",
+        name: "",
         mobile: "",
         password: "",
     });
@@ -66,6 +67,16 @@ export default function SignupForm({ toggle }: { toggle: () => void }) {
                     placeholder="name@company.com"
                     fullWidth
                     value={formData.email}
+                    onChange={handleChange}
+                />
+                <Input
+                    borderRadius="1rem"
+                    leftIcon={<User className="w-5 h-5" />}
+                    label="Name"
+                    name="name"
+                    placeholder="Enter your name"
+                    fullWidth
+                    value={formData.name}
                     onChange={handleChange}
                 />
                 <Input
