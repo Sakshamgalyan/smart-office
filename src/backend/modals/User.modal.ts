@@ -12,7 +12,6 @@ export interface User {
     updatedAt: Date;
 }
 
-
 export interface UserResponse {
     id: string;
     name: string;

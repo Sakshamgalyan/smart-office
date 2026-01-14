@@ -1,24 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface User {
-    id: string;
-    name: string;
-    email: string;
-    username?: string;
-    mobile?: string;
-    role: string;
-}
-
-interface AuthState {
-    user: User | null;
-    isAuthenticated: boolean;
-    isLoading: boolean;
-}
+import { AuthState, User } from '../../context/auth/type';
 
 const initialState: AuthState = {
     user: null,
     isAuthenticated: false,
-    isLoading: true, // Start true to check for existing session
+    isLoading: false,
 };
 
 const authSlice = createSlice({

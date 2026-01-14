@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, DM_Sans } from "next/font/google"; // [MODIFIED]
 import "./globals.css";
 import { ReactLenis } from "lenis/react";
-import StoreProvider from "@/components/StoreProvider";
+import StoreProvider from "@/store/StoreProvider";
 import Toaster from "@/components/UI/Toaster";
 
 const geistSans = Geist({
