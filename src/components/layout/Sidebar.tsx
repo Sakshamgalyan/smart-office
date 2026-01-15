@@ -24,6 +24,7 @@ import { clearUser } from '@/store/slices/authSlice'; // Assuming clearUser exis
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { SidebarSkeleton } from './SidebarSkeleton';
+import api from '@/lib/apiClient';
 
 interface SidebarItem {
     icon: any;
@@ -45,7 +46,7 @@ export default function Sidebar() {
     const { isSidebarCollapsed, floors } = useSelector((state: RootState) => state.ui);
     const { user, isLoading } = useSelector((state: RootState) => state.auth);
     const router = useRouter();
-    const userRole = user?.role?.toLowerCase() || 'guest'; // Default to guest if no user
+    const userRole = user?.role?.toLowerCase() || 'admin'; // Default to guest if no user
 
     const handleToggle = () => {
         dispatch(toggleSidebar());
@@ -56,9 +57,11 @@ export default function Sidebar() {
         dispatch(addFloor(newFloor));
     };
 
-    const handleLogout = () => {
-        dispatch(clearUser());
-        router.push('/');
+    const handleLogout = async () => {
+        const { data } = await api.post("/users/logout");
+        if(data === "success"){
+            router.push('/');
+        }
     };
 
     // --- Configuration ---

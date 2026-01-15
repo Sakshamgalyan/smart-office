@@ -24,7 +24,7 @@ export default function LoginForm({ toggle }: { toggle: () => void }) {
 
         setIsLoading(true);
         try {
-            const { data } = await api.post("/auth/login", { identifier, password }, {
+            const { data } = await api.post("/users/login", { identifier, password }, {
                 successMessage: "Login successful! Welcome back.",
             });
 

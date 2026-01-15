@@ -1,1 +1,1 @@
-export { login as POST } from "@/backend/controllers/User.controller";
+export { login as POST } from "../../../../../Backend/src/controllers/User.controller";

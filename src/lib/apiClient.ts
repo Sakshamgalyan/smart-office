@@ -8,7 +8,7 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 }
 
 const apiClient: AxiosInstance = axios.create({
-    baseURL: API_BASE_URL || '/api',
+    baseURL: API_BASE_URL,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',

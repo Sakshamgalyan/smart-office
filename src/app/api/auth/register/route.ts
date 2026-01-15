@@ -1,1 +1,1 @@
-export { register as POST } from "@/backend/controllers/User.controller";
+export { register as POST } from "../../../../../Backend/src/controllers/User.controller";

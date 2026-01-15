@@ -29,7 +29,7 @@ export default function SignupForm({ toggle }: { toggle: () => void }) {
     const handleSignup = async () => {
         setIsLoading(true);
         try {
-            const { data } = await api.post("/auth/register", formData, {
+            const { data } = await api.post("/users/register", formData, {
                 successMessage: "Account created successfully!",
             });
 
