@@ -1,5 +1,6 @@
 import { loginUserService, registerUserService } from "../services/User.services.js";
 import { validationResult } from "express-validator";
+import blackListTokenModel from "../models/blacklistToken.modal.js";
 export const loginUser = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -11,7 +12,7 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ error: "Missing credentials" });
         }
         const userResponse = await loginUserService(identifier, password);
-        res.cookie('auth-token', userResponse.id, {
+        res.cookie('token', userResponse.id, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
@@ -58,7 +59,7 @@ export const registerUser = async (req, res) => {
             mobile
         });
         // Set auth cookie
-        res.cookie('auth-token', id, {
+        res.cookie('token', id, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
@@ -75,6 +76,28 @@ export const registerUser = async (req, res) => {
         if (error.message === "Missing required fields") {
             return res.status(400).json({ error: "Missing required fields" });
         }
+        return res.status(500).json({ error: "Internal server error" });
+    }
+};
+export const getUserProfile = async (req, res) => {
+    try {
+        const user = req.user;
+        return res.status(200).json({ user });
+    }
+    catch (error) {
+        console.error("Get user profile error:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+};
+export const logoutUser = async (req, res) => {
+    try {
+        res.clearCookie('token');
+        const token = req.cookies['token'];
+        await blackListTokenModel.create({ token });
+        return res.status(200).json({ success: true });
+    }
+    catch (error) {
+        console.error("Logout error:", error);
         return res.status(500).json({ error: "Internal server error" });
     }
 };

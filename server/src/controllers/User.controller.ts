@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { loginUserService, registerUserService } from "../services/User.services.js";
 import { validationResult } from "express-validator";
-import blackListTokenModel from "../modals/blacklistToken.modal.js";
+import blackListTokenModel from "../models/blacklistToken.modal.js";
 
 export const loginUser = async (req: Request, res: Response) => {
     const errors = validationResult(req);
@@ -70,7 +70,7 @@ export const registerUser = async (req: Request, res: Response) => {
         });
 
         // Set auth cookie
-        res.cookie('auth-token', id, {
+        res.cookie('token', id, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
